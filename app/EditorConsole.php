@@ -3,10 +3,12 @@
 class EditorConsole extends Console
 {
   private $querySet = null;
+  private $decoder = null;
 
   public function __construct($querySet)
   {
     $this->querySet = $querySet;
+    $this->decoder = new Decoder();
   }
 
   public function run()
@@ -30,7 +32,23 @@ class EditorConsole extends Console
 
   private function askPhrase()
   {
+    echo $this->bold("Enter a phrase:");
+    $phrase = trim(readline(' '));
+    echo PHP_EOL;
 
+    if (mb_strlen($phrase) <= 10) {
+      echo $this->red('Phrase is too short') . PHP_EOL;
+      return;
+    }
+
+    $isPhraseCorrect = $this->decoder->isTemplateCorrect($phrase);
+
+    if (!$isPhraseCorrect) {
+      echo $this->red('Incorrect phrase') . PHP_EOL;
+      return;
+    }
+
+    $this->querySet->insertPhrase($phrase, 0);
   }
 
   private function enterNextPhrase()

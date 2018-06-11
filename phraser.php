@@ -9,6 +9,7 @@ $dbSettings = [
 ];
 
 require_once './settings.php';
+require_once './app/Decoder.php';
 require_once './app/QuerySet.php';
 require_once './app/Console.php';
 require_once './app/EditorConsole.php';
