@@ -3,6 +3,6 @@
 require_once './app/Decoder.php';
 
 $decoder = new Decoder();
-$result = $decoder->isTemplateCorrect('abcde[f][]');
+$result = $decoder->decodeTemplate('a[b]c[d|d]ee[fff|fff|fff]gggg');
 
-echo ($result) ? "correct\n" : "wrong\n";
+print_r($result);

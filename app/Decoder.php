@@ -4,7 +4,47 @@ class Decoder
 {
   public function decodeTemplate($template)
   {
+    $isCorrect = $this->isTemplateCorrect($template);
 
+    if (!$isCorrect) {
+      return false;
+    }
+
+    $sequence = [];
+    $segment = '';
+    $length = mb_strlen($template);
+
+    for ($idx = 0; $idx < $length; $idx++) {
+      $symbol = mb_substr($template, $idx, 1);
+
+      // начало вариатора
+      if ($symbol === '[') {
+        if (mb_strlen($segment) > 0) {
+          array_push($sequence, $segment);
+          $segment = '';
+        }
+        array_push($sequence, []);
+      }
+
+      // конец сегмента вариатора или конец вариатора
+      else if ($symbol === '|' || $symbol === ']') {
+        $sequenceIdx = count($sequence) - 1;
+        array_push($sequence[$sequenceIdx], $segment);
+        $segment = '';
+      }
+
+      // очередной символ
+      else {
+        $segment .= $symbol;
+      }
+    }
+
+    // конец шаблона
+    if (mb_strlen($segment) > 0) {
+      array_push($sequence, $segment);
+      $segment = '';
+    }
+    return $sequence;
   }
 
   public function isTemplateCorrect($template)
