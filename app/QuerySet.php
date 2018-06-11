@@ -16,6 +16,18 @@ class QuerySet
     }
   }
 
+  public function insertPhrase($phrase, $categoryId)
+  {
+    $stmt = $this->pdo->prepare(
+      "INSERT INTO phrases (phrase, category_id)
+      VALUES (:phrase, :category_id)"
+    );
+    $stmt->execute([
+      ':phrase' => $phrase,
+      ':category_id' => $categoryId
+    ]);
+  }
+
   public function __destruct()
   {
     $this->pdo = null;

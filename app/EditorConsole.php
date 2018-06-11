@@ -13,6 +13,12 @@ class EditorConsole extends Console
   {
     $this->start();
 
+    do {
+      $this->askPhrase();
+      $next = $this->enterNextPhrase();
+    }
+    while ($next);
+
     $this->end();
   }
 
@@ -20,6 +26,21 @@ class EditorConsole extends Console
   {
     echo $this->bold('EDITOR MODE ON') . PHP_EOL;
     echo $this->bold('--------------') . PHP_EOL;
+  }
+
+  private function askPhrase()
+  {
+
+  }
+
+  private function enterNextPhrase()
+  {
+    echo $this->bold('Enter a next phrase? (y|n):');
+    $answer = trim(readline(' '));
+    echo PHP_EOL;
+
+    $boolAnswer = ($answer === 'y');
+    return $boolAnswer;
   }
 
   private function end()
