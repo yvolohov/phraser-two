@@ -1,8 +1,27 @@
 <?php
 
-require_once './app/Decoder.php';
+$dbSettings = [
+  'host' => '127.0.0.1',
+  'db' => '',
+  'user' => '',
+  'password' => '',
+  'charset' => 'utf8'
+];
 
-$decoder = new Decoder();
-$result = $decoder->decodeTemplate('a[b]c[d|d]ee[fff|fff|fff]gggg');
+require_once './settings.php';
+require_once './app/Console.php';
 
-print_r($result);
+$option = mb_strtolower(($argc > 1) ? $argv[1] : '');
+
+switch ($option) {
+  case '-e':
+    break;
+
+  case '-t':
+    break;
+
+  default:
+    $console = new Console();
+    $console->showHelp();
+    break;
+}
