@@ -12,6 +12,7 @@ require_once './settings.php';
 require_once './app/QuerySet.php';
 require_once './app/Console.php';
 require_once './app/EditorConsole.php';
+require_once './app/TestConsole.php';
 
 $querySet = new QuerySet(
   $dbSettings['host'],
@@ -30,6 +31,8 @@ switch ($option) {
     break;
 
   case '-t':
+    $console = new TestConsole($querySet);
+    $console->run();
     break;
 
   default:
