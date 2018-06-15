@@ -9,10 +9,13 @@ class TestConsole extends Console
     $this->querySet = $querySet;
   }
 
-  public function run()
+  public function run($phrasesMaxCount)
   {
     $this->start();
+    $phrases = $this->querySet->selectPhrases($phrasesMaxCount);
 
+    print_r($phrases);
+    
     $this->end();
   }
 
@@ -26,5 +29,5 @@ class TestConsole extends Console
   {
     echo $this->bold('---------------') . PHP_EOL;
     echo $this->bold('TEST MODE OFF') . PHP_EOL;
-  }      
+  }
 }

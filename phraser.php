@@ -28,12 +28,12 @@ $option = mb_strtolower(($argc > 1) ? $argv[1] : '');
 switch ($option) {
   case '-e':
     $console = new EditorConsole($querySet);
-    $console->run();
+    $console->run(30);
     break;
 
   case '-t':
     $console = new TestConsole($querySet);
-    $console->run();
+    $console->run(30);
     break;
 
   default:
