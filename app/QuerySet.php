@@ -30,6 +30,7 @@ class QuerySet
       FROM phrases
       LEFT JOIN tests
       ON (phrases.id = tests.phrase_id)
+      ORDER BY last_passage
       LIMIT :phrases_count"
     );
 

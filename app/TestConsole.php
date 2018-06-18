@@ -13,9 +13,17 @@ class TestConsole extends Console
   {
     $this->start();
     $phrases = $this->querySet->selectPhrases($phrasesMaxCount);
+    $phrasesCount = count($phrases);
 
-    print_r($phrases);
-    
+    for ($index = 0; $index < $phrasesCount; $index++) {
+      $phrase = $phrases[$index];
+      $success = $this->showQuestion($phrase, $index + 1, 1);
+
+      if (!$success) {
+        $this->showQuestion($phrase, $index + 1, 2);
+      }
+    }
+
     $this->end();
   }
 
@@ -23,6 +31,11 @@ class TestConsole extends Console
   {
     echo $this->bold('TEST MODE ON') . PHP_EOL;
     echo $this->bold('--------------') . PHP_EOL;
+  }
+
+  private function showQuestion($phrase, $questionNumber, $tryNumber)
+  {
+    // print_r($phrase);
   }
 
   private function end()
