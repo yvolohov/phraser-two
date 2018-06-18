@@ -91,9 +91,22 @@ class Decoder
         $starredTemplate .= $segment;
       }
       else if ($type === 'array') {
-        $starredTemplate .= '***';
+        $starredTemplate .= $this->starTemplateSegment($segment[0]);
       }
     }
     return $starredTemplate;
+  }
+
+  private function starTemplateSegment($segment)
+  {
+    $starredSegment = '';
+    $length = mb_strlen($segment);
+
+    for ($idx = 0; $idx < $length; $idx++) {
+      $symbol = mb_substr($segment, $idx, 1);
+      $isSpace = ($symbol === "\x9" || $symbol === "\x20");
+      $starredSegment .= ($isSpace) ? $symbol : '*';
+    }
+    return $starredSegment;
   }
 }
