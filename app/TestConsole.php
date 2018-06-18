@@ -7,6 +7,7 @@ class TestConsole extends Console
   public function __construct($querySet)
   {
     $this->querySet = $querySet;
+    $this->decoder = new Decoder();
   }
 
   public function run($phrasesMaxCount)
@@ -16,11 +17,11 @@ class TestConsole extends Console
     $phrasesCount = count($phrases);
 
     for ($index = 0; $index < $phrasesCount; $index++) {
-      $phrase = $phrases[$index];
-      $success = $this->showQuestion($phrase, $index + 1, 1);
+      $row = $phrases[$index];
+      $success = $this->showQuestion($row, $index + 1, 1);
 
       if (!$success) {
-        $this->showQuestion($phrase, $index + 1, 2);
+        $this->showQuestion($row, $index + 1, 2);
       }
     }
 
@@ -33,9 +34,13 @@ class TestConsole extends Console
     echo $this->bold('--------------') . PHP_EOL;
   }
 
-  private function showQuestion($phrase, $questionNumber, $tryNumber)
+  private function showQuestion($row, $questionNumber, $tryNumber)
   {
-    // print_r($phrase);
+    $decodedPhrase = $this->decoder->decodeTemplate($row['phrase']);
+    $starredPhrase = $this->decoder->starTemplate($decodedPhrase);
+
+    print($starredPhrase . PHP_EOL);
+    return true;
   }
 
   private function end()

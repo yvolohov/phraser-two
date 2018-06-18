@@ -77,4 +77,23 @@ class Decoder
     }
     return $isTemplateCorrect;
   }
+
+  public function starTemplate($decodedTemplate)
+  {
+    $starredTemplate = '';
+    $count = count($decodedTemplate);
+
+    for ($idx = 0; $idx < $count; $idx++) {
+      $segment = $decodedTemplate[$idx];
+      $type = gettype($segment);
+
+      if ($type === 'string') {
+        $starredTemplate .= $segment;
+      }
+      else if ($type === 'array') {
+        $starredTemplate .= '***';
+      }
+    }
+    return $starredTemplate;
+  }
 }
