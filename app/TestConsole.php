@@ -36,9 +36,25 @@ class TestConsole extends Console
     $starredPhrase = $this->decoder->assemblePhrase($decodedTemplate, true);
     $variators = $this->getTemplateVariators($decodedTemplate);
 
-    echo $this->bold('Number: ') . $questionNumber . PHP_EOL;
-    echo $this->bold('Phrase: ') . $starredPhrase . PHP_EOL;
+    echo $this->bold('Number: ') . $this->green($questionNumber) . PHP_EOL;
+    echo $this->bold('Phrase: ') . $this->green($starredPhrase) . PHP_EOL . PHP_EOL;
 
+    $count = count($variators);
+
+    for ($idx = 0; $idx < $count; $idx++) {
+      $number = $idx + 1;
+      $variator = $variators[$idx];
+
+      echo "#{$number}:" . PHP_EOL;
+      $currentSegment = mb_strtolower(trim(readline()));
+
+      if ($currentSegment !== $variator[0]) {
+        $idx--;
+        echo $this->red('wrong') . PHP_EOL . PHP_EOL;
+        continue;
+      }
+      echo PHP_EOL;
+    }
   }
 
   private function getTemplateVariators($decodedTemplate)
