@@ -18,11 +18,7 @@ class TestConsole extends Console
 
     for ($index = 0; $index < $phrasesCount; $index++) {
       $row = $phrases[$index];
-      $success = $this->showQuestion($row, $index + 1, 1);
-
-      if (!$success) {
-        $this->showQuestion($row, $index + 1, 2);
-      }
+      $this->showQuestion($row, $index + 1);
     }
 
     $this->end();
@@ -34,13 +30,15 @@ class TestConsole extends Console
     echo $this->bold('--------------') . PHP_EOL;
   }
 
-  private function showQuestion($row, $questionNumber, $tryNumber)
+  private function showQuestion($row, $questionNumber)
   {
     $decodedTemplate = $this->decoder->decodeTemplate($row['phrase']);
     $starredPhrase = $this->decoder->assemblePhrase($decodedTemplate, true);
 
-    print($starredPhrase . PHP_EOL);
-    return true;
+    echo $this->bold('Number: ') . $questionNumber . PHP_EOL;
+    echo $this->bold('Phrase: ') . $starredPhrase . PHP_EOL;
+
+
   }
 
   private function end()
