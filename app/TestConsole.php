@@ -45,8 +45,9 @@ class TestConsole extends Console
     for ($idx = 0; $idx < $count; $idx++) {
       $number = $idx + 1;
       $variator = $variators[$idx];
+      $prompt = (count($variator) > 1) ? $this->green($variator[1]) : '';
 
-      echo "#{$number}:" . PHP_EOL;
+      echo "#{$number}: {$prompt}" . PHP_EOL;
       $currentSegment = mb_strtolower(trim(readline()));
 
       if ($currentSegment !== $variator[0]) {
