@@ -36,8 +36,8 @@ class TestConsole extends Console
 
   private function showQuestion($row, $questionNumber, $tryNumber)
   {
-    $decodedPhrase = $this->decoder->decodeTemplate($row['phrase']);
-    $starredPhrase = $this->decoder->starTemplate($decodedPhrase);
+    $decodedTemplate = $this->decoder->decodeTemplate($row['phrase']);
+    $starredPhrase = $this->decoder->assemblePhrase($decodedTemplate, true);
 
     print($starredPhrase . PHP_EOL);
     return true;

@@ -78,9 +78,9 @@ class Decoder
     return $isTemplateCorrect;
   }
 
-  public function starTemplate($decodedTemplate)
+  public function assemblePhrase($decodedTemplate, $starred=false)
   {
-    $starredTemplate = '';
+    $phrase = '';
     $count = count($decodedTemplate);
 
     for ($idx = 0; $idx < $count; $idx++) {
@@ -88,16 +88,16 @@ class Decoder
       $type = gettype($segment);
 
       if ($type === 'string') {
-        $starredTemplate .= $segment;
+        $phrase .= $segment;
       }
       else if ($type === 'array') {
-        $starredTemplate .= $this->starTemplateSegment($segment[0]);
+        $phrase .= ($starred) ? $this->starSegment($segment[0]) : $segment[0];
       }
     }
-    return $starredTemplate;
+    return $phrase;
   }
 
-  private function starTemplateSegment($segment)
+  private function starSegment($segment)
   {
     $starredSegment = '';
     $length = mb_strlen($segment);
