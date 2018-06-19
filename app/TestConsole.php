@@ -58,6 +58,7 @@ class TestConsole extends Console
       echo PHP_EOL;
     }
 
+    $this->writeTest($row);
     echo $this->bold('Result: ') . $this->green($openedPhrase) . PHP_EOL;
     echo PHP_EOL;
   }
@@ -77,6 +78,16 @@ class TestConsole extends Console
       }
     }
     return $variators;
+  }
+
+  private function writeTest($phrase)
+  {
+    if ($phrase['test_exists'] > 0) {
+      $this->querySet->updateTest($phrase['id'], $phrase['passages_cnt']);
+    }
+    else {
+      $this->querySet->insertTest($phrase['id']);
+    }
   }
 
   private function end()

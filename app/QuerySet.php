@@ -52,6 +52,31 @@ class QuerySet
     ]);
   }
 
+  public function insertTest($phraseId)
+  {
+    $stmt = $this->pdo->prepare(
+      "INSERT INTO tests (phrase_id, passages_cnt, first_passage, last_passage)
+      VALUES (:phrase_id, 1, NOW(), NOW())"
+    );
+
+    $stmt->execute([
+      ':phrase_id' => $phraseId
+    ]);
+  }
+
+  public function updateTest($phraseId, $passagesCnt)
+  {
+    $stmt = $this->pdo->prepare(
+      "UPDATE tests SET passages_cnt = :passages_cnt, last_passage = NOW()
+      WHERE phrase_id = :phrase_id"
+    );
+
+    $stmt->execute([
+      ':phrase_id' => $phraseId,
+      ':passages_cnt' => $passagesCnt + 1
+    ]);
+  }
+
   public function __destruct()
   {
     $this->pdo = null;
