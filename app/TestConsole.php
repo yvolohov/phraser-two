@@ -34,11 +34,28 @@ class TestConsole extends Console
   {
     $decodedTemplate = $this->decoder->decodeTemplate($row['phrase']);
     $starredPhrase = $this->decoder->assemblePhrase($decodedTemplate, true);
+    $variators = $this->getTemplateVariators($decodedTemplate);
 
     echo $this->bold('Number: ') . $questionNumber . PHP_EOL;
     echo $this->bold('Phrase: ') . $starredPhrase . PHP_EOL;
 
+  }
 
+  private function getTemplateVariators($decodedTemplate)
+  {
+    $variators = [];
+    $count = count($decodedTemplate);
+
+    for ($idx = 0; $idx < $count; $idx++) {
+      $segment = $decodedTemplate[$idx];
+      $type = gettype($segment);
+
+      if ($type === 'array') {
+        $segment[0] = mb_strtolower(trim($segment[0]));
+        array_push($variators, $segment);
+      }
+    }
+    return $variators;
   }
 
   private function end()
