@@ -34,6 +34,7 @@ class TestConsole extends Console
   {
     $decodedTemplate = $this->decoder->decodeTemplate($row['phrase']);
     $starredPhrase = $this->decoder->assemblePhrase($decodedTemplate, true);
+    $openedPhrase = $this->decoder->assemblePhrase($decodedTemplate, false);
     $variators = $this->getTemplateVariators($decodedTemplate);
 
     echo $this->bold('Number: ') . $this->green($questionNumber) . PHP_EOL;
@@ -50,11 +51,15 @@ class TestConsole extends Console
 
       if ($currentSegment !== $variator[0]) {
         $idx--;
-        echo $this->red('wrong') . PHP_EOL . PHP_EOL;
+        echo $this->red('wrong') . PHP_EOL;
+        echo PHP_EOL;
         continue;
       }
       echo PHP_EOL;
     }
+
+    echo $this->bold('Result: ') . $this->green($openedPhrase) . PHP_EOL;
+    echo PHP_EOL;
   }
 
   private function getTemplateVariators($decodedTemplate)
