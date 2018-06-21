@@ -36,7 +36,7 @@ class EditorConsole extends Console
     $phrase = trim(readline(' '));
     echo PHP_EOL;
 
-    if (mb_strlen($phrase) <= 10) {
+    if (mb_strlen($phrase) <= 3) {
       echo $this->red('Phrase is too short') . PHP_EOL;
       return;
     }
