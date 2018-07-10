@@ -45,9 +45,10 @@ class TestConsole extends Console
     for ($idx = 0; $idx < $count; $idx++) {
       $number = $idx + 1;
       $variator = $variators[$idx];
-      $prompt = (count($variator) > 1) ? $this->green($variator[1]) : '';
+      $meaningPrompt = (count($variator) > 1) ? $this->green($variator[1]) : '';
+      $grammarPrompt = (count($variator) > 2) ? $this->green($variator[2]) : '';
 
-      echo "#{$number}: {$prompt}" . PHP_EOL;
+      echo "#{$number}: {$meaningPrompt} {$grammarPrompt}" . PHP_EOL;
       $currentSegment = mb_strtolower(trim(readline()));
 
       if ($currentSegment !== $variator[0]) {
@@ -61,7 +62,7 @@ class TestConsole extends Console
 
     $this->writeTest($row);
     echo $this->bold('Result: ') . $this->green($openedPhrase) . PHP_EOL;
-    echo PHP_EOL;
+    echo $this->bold('---------------') . PHP_EOL;
   }
 
   private function getTemplateVariators($decodedTemplate)
@@ -93,7 +94,6 @@ class TestConsole extends Console
 
   private function end()
   {
-    echo $this->bold('---------------') . PHP_EOL;
     echo $this->bold('TEST MODE OFF') . PHP_EOL;
   }
 }
